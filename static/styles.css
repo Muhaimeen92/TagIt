@@ -1,0 +1,107 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: 80px;
+}
+
+/* colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+.Red
+{
+    font-weight: bold;
+    background-color: #ff5050;
+    color: #ffffff;
+    cursor: pointer;
+}
+.Blue
+{
+    font-weight: bold;
+    background-color: #0099ff;
+    color: #ffffff;
+    cursor: pointer;
+}
+.Yellow
+{
+    font-weight: bold;
+    background-color: #ffcc00;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.BlueTag
+{
+    font-weight: bold;
+    background-color: #0099ff;
+    color: #ffffff;
+}
+
+.RedTag
+{
+    font-weight: bold;
+    background-color: #ff5050;
+    color: #ffffff;
+}
+
+.YellowTag
+{
+    font-weight: bold;
+    background-color: #ffcc00;
+    color: #ffffff;
+}
+
+fieldset {
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-bottom: 0.625em;
+
+  border: 2px solid grey;
+}
+
+@media (max-width: 450px) {
+
+    main .form-control{
+        /* override Bootstrap's 100% width for form controls */
+        width: 240px;
+    }
+}

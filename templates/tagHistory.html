@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tag history
+{% endblock %}
+
+{% block main %}
+<h1 class="mb-3">My {{status}} Tags</h1>
+<br/>
+<div class"form-group">
+    <input class="form-control" type="text" id="searchBar" name="searchBar" placeholder="Search Tags" style="width: 120px" autofocus="on" onkeyup="searchFunction()">
+</div>
+<br/>
+
+    <table id="tags" class="table table-bordered" style="width:100%">
+        <col width="120">
+        <col width="700">
+        <thead>
+            <tr>
+                <th>Tag ID</th>
+                <th>Status</th>
+                <th>{{status}} Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for tag in tags %}
+                    <tr id="{{ tag.tag_id }}" class="{{ tag.color }}">
+                        <a href="/tagDisplay" style="color: #ffffff">
+                        <td id="{{ tag.tag_id }}">{{ tag.tag_id }}</td>
+                        <td>{{ tag.status_code }}</td>
+                        {% if user_type==1 %}
+                        <td>{{ tag.date_approved }}</td>
+                        {% elif user_type==2 %}
+                        <td>{{ tag.date_closed }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tr>
+        <script>
+                        $("tr").click(function(){
+                            window.location = "/tagDisplay?tagid="+this.id;
+                        });
+        </script>
+        <script>
+            function searchFunction() {
+                var search, filter, table, tr, td, i, txtValue;
+                search = document.getElementById("searchBar");
+                filter = search.value.toUpperCase();
+                table = document.getElementById("tags");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
+
+    </table>
+
+{% endblock %}

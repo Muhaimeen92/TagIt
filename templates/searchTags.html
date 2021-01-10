@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Tags
+{% endblock %}
+
+{% block main %}
+<h1 class="mb-3">All Toronto Closed Tags</h1>
+<br/>
+<div class"form-group">
+    <input class="form-control" type="text" id="searchBar" name="searchBar" placeholder="Search Tags" style="width: 120px" autofocus="on" onkeyup="searchFunction()">
+</div>
+<br/>
+
+
+    <table id="tags" class="table table-bordered" style="width:100%">
+        <col width="120">
+        <col width="700">
+        <thead>
+            <tr>
+                <th>Tag ID</th>
+                <th>Status</th>
+                <th>Closed Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="row" name="row">
+                {% for tag in closed_tags %}
+                    <tr id="{{ tag.tag_id }}" class="{{ tag.color }}">
+                        <a href="/tagDisplay" style="color: #ffffff">
+                        <td id="{{ tag.tag_id }}">{{ tag.tag_id }}</td>
+                        <td>{{ tag.status_code }}</td>
+                        <td>{{ tag.date_closed }}</td>
+                    </tr>
+                {% endfor %}
+            </tr>
+        <script>
+                        $("tr").click(function(){
+                            window.location = "/tagDisplay?tagid="+this.id;
+                        });
+        </script>
+        <script>
+            function searchFunction() {
+                var search, filter, table, tr, td, i, txtValue;
+                search = document.getElementById("searchBar");
+                filter = search.value.toUpperCase();
+                table = document.getElementById("tags");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
+
+    </table>
+
+{% endblock %}

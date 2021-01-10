@@ -1,0 +1,165 @@
+
+    <form action="/tagSubmission" method="post">
+        <fieldset>
+        <div class="{{color}}Tag">
+            <h1>{{color}} Tag</h1>
+        </div>
+        <br/>
+        <div class"form-group">
+            <input autocomplete="off" autofocus class="form-control" id="tag_id" name="tag_id" placeholder="Tag ID" type="text" required>
+        </div>
+
+        <br/>
+        <div style="font-size: 20px">
+            <div class="container">
+            <div class="row justify-content-sm-center">
+            <div class="col-md-auto">
+                <label class="radio-inline"><input type="radio" name="hazard" style="margin-right: 10px" value="Non-Hazardous" checked>Non-Hazardous</label>
+            </div>
+            <div class="col-md-auto">
+                <label class="radio-inline"><input type="radio" name="hazard" style="margin-right: 10px" value="Hazardous">Hazardous</label>
+            </div>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <select class="form-control" name="line" id="line" placeholder="Line" style="width: 100px" required>
+                    <option value="" disabled selected>Line</option>
+                    <option value="1">Line 1</option>
+                    <option value="2">Line 2</option>
+                </select>
+            </div>
+            <div class="col-md-auto">
+                <input autocomplete="off" autofocus class="form-control" name="area" placeholder="Area" type="text" style="width: 200px" required>
+            </div>
+            <div class="col-md-auto">
+                <input autocomplete="off" autofocus class="form-control" name="equipment" placeholder="Equipment" type="text" style="width: 200px" required>
+            </div>
+            </div>
+            </div>
+        </div>
+        <br/>
+        <div class="form-check">
+            <h1 style="font-size: 25px">Condition</h1>
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" name="unCondition" id="unCondition">
+                <label class="form-check-label" for="unCondition">
+                    Unsafe Condition
+                </label>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" name="unBasicCondition" id="unBasicCondition">
+                <label class="form-check-label" for="unBasicCondition">
+                    Unfulfilled Basic Condition
+                </label>
+            </div>
+            </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="form-check">
+            <h1 style="font-size: 25px">Type of Defect</h1>
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" id="unItem" name="unItem">
+                <label class="form-check-label" for="unItem">
+                    Unnecessary Items
+                </label>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" id="hardToAccess" name="hardToAccess">
+                <label class="form-check-label" for="hardToAccess">
+                    Hard to Access
+                </label>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" id="sOfContamination" name="sOfContamination">
+                <label class="form-check-label" for="sOfContamination">
+                    Sources of Contamination
+                </label>
+            </div>
+            </div>
+            </div>
+        </div>
+
+        <br/>
+        <div class="form-check">
+            <h1 style="font-size: 25px">Quality</h1>
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" id="minorFlaw" name="minorFlaw">
+                <label class="form-check-label" for="minorFlaw">
+                    Minor Flaws/Small Failures
+                </label>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" id="quality" name="quality">
+                <label class="form-check-label" for="quality">
+                    Quality Defect Sources
+                </label>
+            </div>
+            </div>
+            </div>
+        </div>
+
+        <br/>
+        <div class="form-group">
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <select class="form-control" id="tagPriority" name="tagPriority" placeholder="Tag Priority" style="width: 200px" required>
+                    <option value="" disabled selected>Tag Priority</option>
+                    <option value="emergency">Emergency</option>
+                    <option value="urgent">Urgent</option>
+                    <option value="normal">Normal</option>
+                </select>
+            </div>
+            </div>
+            </div>
+        </div>
+
+        <br/>
+        <div class="form-group">
+            <textarea autocomplete="off" autofocus class="form-control" name="description" placeholder="Description" type="text" rows="10" cols="70" required></textarea>
+        </div>
+        <div class="form-group">
+            <textarea autocomplete="off" autofocus class="form-control" name="solution" placeholder="Recommended Solution" type="text" rows="10" cols="70"></textarea>
+        </div>
+
+        <br/>
+            <button class="btn btn-primary" type="submit" id="color" name="color" value="{{ color }}">Submit Tag</button>
+    </fieldset>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        let tagid=document.querySelector('#tag_id');
+        var signal=true;
+        document.querySelector('#tag_id').onsubmit=function(){
+            $.get('/tagcheck?tagid='+tagid.value, function(data)
+                {
+                    if (data)
+                    {
+                        alert("Tag ID already exists");
+                        signal = false;
+                    }
+                });
+
+            if (!signal)
+                {
+                    return false;
+                }
+            else
+                {
+                    return true;
+                }
+        };
+    </script>
+

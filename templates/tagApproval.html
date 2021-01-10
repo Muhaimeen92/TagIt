@@ -1,0 +1,207 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tag Approval
+{% endblock %}
+
+{% block main %}
+    <form action="/tagApproval?tagid={{tag.tag_id}}" method="post">
+        <fieldset>
+        <div class="{{tag.color}}Tag">
+            <h1>{{ tag.color }} Tag</h1>
+        </div>
+        <br/>
+        <div class"form-group">
+            <input class="form-control" type="text" id="tag_id" name="tag_id" value="{{tag.tag_id}}" disabled />
+        </div>
+
+        <br/>
+        <div style="font-size: 20px">
+            <div class="container">
+            <div class="row justify-content-sm-center">
+            <div class="col-md-auto">
+                <label class="radio-inline" id="abc"><input type="radio" id="nonHazard" style="margin-right: 10px" disabled>Non-Hazardous</label>
+            </div>
+            <div class="col-md-auto">
+                <label class="radio-inline"><input type="radio" id="hazard" style="margin-right: 10px" disabled>Hazardous</label>
+            </div>
+            </div>
+            </div>
+            {% if tag.hazard=="Hazardous" %}
+                <script>
+                    document.getElementById("hazard").checked = true;
+                </script>
+            {% endif %}
+            {% if tag.hazard=="Non-Hazardous" %}
+                <script>
+                    document.getElementById("nonHazard").checked = true;
+                </script>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <input autocomplete="off" autofocus class="form-control" name="name" type="text" value="{{ name }}" disabled />
+            </div>
+            <div class="col-md-auto">
+                <input autocomplete="off" autofocus class="form-control" name="date" type="date" value="{{ tag.date_created }}" disabled />
+            </div>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="container">
+            <div class="row justify-content-sm-center">
+            <div class="col-md-auto">
+                <select class="form-control" name="line" id="line" placeholder="Line" style="width: 100px">
+                    <option disabled selected>Line{{ tag.line }}</option>
+                </select>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-control" type="text" value="{{tag.area}}" style="width: 200px" disabled />
+            </div>
+            <div class="col-md-auto">
+                <input class="form-control" value="{{tag.equipment}}" type="text" style="width: 200px" disabled />
+            </div>
+            </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="form-check">
+            <h1 style="font-size: 25px">Condition</h1>
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" value="" name="unCondition" id="unCondition" disabled />
+                <label class="form-check-label" for="unCondition" style="color: #000000">
+                    Unsafe Condition
+                </label>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" value="" name="unBasicCondition" id="unBasicCondition" disabled />
+                <label class="form-check-label" for="unBasicCondition" style="color: #000000">
+                    Unfulfilled Basic Condition
+                </label>
+            </div>
+            </div>
+            </div>
+            {% if tag.unsafeCondition=="yes" %}
+                <script>
+                    document.getElementById("unCondition").checked = true;
+                </script>
+            {% endif %}
+            {% if tag.unsafeBasicCondition=="yes" %}
+                <script>
+                    document.getElementById("unBasicCondition").checked = true;
+                </script>
+            {% endif %}
+        </div>
+        <br/>
+
+        <div class="form-check">
+            <h1 style="font-size: 25px">Type of Defect</h1>
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" value="" id="unItem" disabled />
+                <label class="form-check-label" for="unItem" style="color: #000000">
+                    Unnecessary Items
+                </label>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" value="" id="hardToAccess" disabled />
+                <label class="form-check-label" for="hardToAccess" style="color: #000000">
+                    Hard to Access
+                </label>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" value="" id="sOfContamination" disabled />
+                <label class="form-check-label" for="sOfContamination" style="color: #000000">
+                    Sources of Contamination
+                </label>
+            </div>
+            </div>
+            </div>
+        </div>
+        {% if tag.unnecessaryItem=="yes" %}
+            <script>
+                document.getElementById("unItem").checked = true;
+            </script>
+        {% endif %}
+        {% if tag.hardToAccess=="yes" %}
+            <script>
+                document.getElementById("hardToAccess").checked = true;
+            </script>
+        {% endif %}
+        {% if tag.sOfContamination=="yes" %}
+            <script>
+                document.getElementById("sOfContamination").checked = true;
+            </script>
+        {% endif %}
+        <br/>
+        <div class="form-check">
+            <h1 style="font-size: 25px">Quality</h1>
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" value="" id="minorFlaw" disabled />
+                <label class="form-check-label" for="minorFlaw" style="color: #000000">
+                    Minor Flaws/Small Failures
+                </label>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-check-input" type="checkbox" value="" id="quality" disabled />
+                <label class="form-check-label" for="quality" style="color: #000000">
+                    Quality Defect Sources
+                </label>
+            </div>
+            </div>
+            </div>
+        </div>
+        {% if tag.minorFlaw=="yes" %}
+            <script>
+                document.getElementById("minorFlaw").checked = true;
+            </script>
+        {% endif %}
+        {% if tag.quality=="yes" %}
+            <script>
+                document.getElementById("quality").checked = true;
+            </script>
+        {% endif %}
+        <br/>
+        <div class="form-group">
+            <div class="container">
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <select class="form-control" id="tagPriority" placeholder="Tag Priority" style="width: 200px">
+                    <option value="" disabled selected>{{ tag.tagPriority }}</option>
+                </select>
+            </div>
+            </div>
+            </div>
+        </div>
+
+        <br/>
+        <div class="form-group">
+            <textarea autocomplete="off" autofocus class="form-control" name="description" placeholder="Description" type="text" rows="10" cols="70" disabled>{{ tag.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <textarea autocomplete="off" autofocus class="form-control" name="solution" placeholder="Recommended Solution" type="text" rows="10" cols="70" disabled>{{ tag.solution }}</textarea>
+        </div>
+
+        <br/>
+        <div class="form-group">
+            <select class="form-control" name="username_to" id="username_to" style="width: 250px" required>
+                <option value="" disabled selected>Assign Tag to</option>
+                {% for trade in trades %}
+                <option value="{{trade.name}}">{{trade.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <br/>
+            <button class="btn btn-primary" type="submit" id="approval" name="approval" value="yes">Approve</button><span style="padding-left: 40px"></span>
+            <button class="btn btn-primary" type="submit" id="approval" name="approval" value="no">Disapprove</button>
+{% endblock %}
